@@ -11,6 +11,25 @@ if errorlevel 1 (
 )
 
 pushd "%~dp0"
+set "NUGET_EXE=%TEMP%\FileShareAccessScanner-nuget.exe"
+if not exist "%NUGET_EXE%" (
+    echo Downloading NuGet package restore tool...
+    powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "Invoke-WebRequest -UseBasicParsing 'https://dist.nuget.org/win-x86-commandline/latest/nuget.exe' -OutFile $env:NUGET_EXE"
+    if errorlevel 1 (
+        echo Error: Unable to download NuGet. Check the internet connection and try again.
+        popd
+        exit /b 1
+    )
+)
+
+echo Restoring NuGet packages...
+"%NUGET_EXE%" restore ".\packages.config" -PackagesDirectory ".\packages" -NonInteractive
+if errorlevel 1 (
+    echo Package restore failed.
+    popd
+    exit /b 1
+)
+
 echo Building FileShareAccessScanner ^(%CONFIGURATION%^)...
 dotnet msbuild ".\FileShareAccessScanner.csproj" /t:Build /p:Configuration=%CONFIGURATION% /p:Platform=AnyCPU /v:minimal
 set "BUILD_EXIT_CODE=%ERRORLEVEL%"
