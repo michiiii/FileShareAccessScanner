@@ -1,0 +1,52 @@
+# Visual Studio and IDE user state
+.vs/
+.vscode/
+.idea/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Local agent/tool state
+.agents/
+.codex/
+/AGENTS.md
+
+# Build outputs and intermediate files
+[Bb]in/
+[Oo]bj/
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+artifacts/
+TestResults/
+
+# NuGet packages are restored from packages.config
+packages/
+*.nupkg
+*.snupkg
+
+# Generated tooling files
+FodyWeavers.xsd
+
+# Logs, diagnostics, and temporary files
+*.log
+*.tmp
+*.temp
+*.cache
+*.dmp
+*.stackdump
+~$*
+
+# OS metadata
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Scanner output may contain sensitive paths, users, and SIDs
+/out.json
+/scan-results/
+/*.scan.json
